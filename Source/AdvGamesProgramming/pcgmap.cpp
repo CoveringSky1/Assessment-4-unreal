@@ -36,8 +36,8 @@ void Apcgmap::BeginPlay()
 {
 	Super::BeginPlay();
 	Doors.Empty();
-	RoomSizeX = FMath::RandRange(3, 6);
-	RoomSizeY = FMath::RandRange(3, 6);
+	RoomSizeX = FMath::RandRange(3, 5);
+	RoomSizeY = FMath::RandRange(3, 5);
 	GenerateRoom();
 }
 
@@ -79,33 +79,33 @@ void Apcgmap::GenerateRoom() {
 	}
 	for (int Y = 0; Y < RoomSizeY; Y++) {
 		//bottom wall generate
-		FVector tileVector = FVector(0, TileSizeY * Y, -40);
+		FVector tileVector = FVector(-200, TileSizeY * Y, -40);
 		FVector final = tileVector + this->GetActorLocation();
-		FRotator rotation = FRotator(0,180,0);
+		FRotator rotation = FRotator(0,0,0);
 		transform.SetLocation(final);
 		transform.SetRotation(rotation.Quaternion());
 		WallOrDoor(final, rotation, transform, Y);
 		//top wall generate
-		tileVector = FVector((RoomSizeX-1) * TileSizeX, Y*TileSizeY, -40);
+		tileVector = FVector((RoomSizeX) * TileSizeX, Y*TileSizeY, -40);
 		final = tileVector + this->GetActorLocation();
 		transform.SetLocation(final);
-		rotation = FRotator(0, 0, 0);
+		rotation = FRotator(0, 180, 0);
 		transform.SetRotation(rotation.Quaternion());
 		WallOrDoor(final, rotation, transform, Y);
 	}
 	for (int X = 0; X < RoomSizeX; X++) {
 		//left wall generate
-		FVector tileVector = FVector(X * TileSizeX, (RoomSizeY-1) * TileSizeY, -40);
+		FVector tileVector = FVector(X * TileSizeX, (RoomSizeY) * TileSizeY, -40);
 		FVector final = tileVector + this->GetActorLocation();
-		FRotator rotation = FRotator(0, 90, 0);
+		FRotator rotation = FRotator(0, -90, 0);
 		transform.SetLocation(final);
 		transform.SetRotation(rotation.Quaternion());
 		WallOrDoor(final, rotation, transform, X);
 		//right wall generate
-		tileVector = FVector(TileSizeX*X , 0, -40);
+		tileVector = FVector(TileSizeX*X , -200, -40);
 		final = tileVector + this->GetActorLocation();
 		transform.SetLocation(final);
-		rotation = FRotator(0, -90, 0);
+		rotation = FRotator(0, 90, 0);
 		transform.SetRotation(rotation.Quaternion());
 		WallOrDoor(final, rotation, transform, X);
 	}
