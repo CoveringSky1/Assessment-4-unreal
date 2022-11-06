@@ -47,7 +47,7 @@ public:
 
 	void generateMap();
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		TSubclassOf<AActor> AIToSpawn;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
