@@ -2,6 +2,7 @@
 
 
 #include "WeaponPickup.h"
+#include "Net/UnrealNetwork.h"
 
 void AWeaponPickup::OnGenerate()
 {
@@ -36,6 +37,17 @@ void AWeaponPickup::OnGenerate()
 	MuzzleVelocity = (RandBoolArray[1] ? FMath::RandRange(10000.0f, 20000.0f) : FMath::RandRange(5000.0f, 10000.0f));
 	MagazineSize = (RandBoolArray[2] ? FMath::RandRange(20, 100) : FMath::RandRange(1, 20));
 	WeaponAccuracy = (RandBoolArray[3] ? FMath::RandRange(0.95f, 1.0f) : FMath::RandRange(0.8f, 0.95f));
+}
+
+void AWeaponPickup::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+
+	DOREPLIFETIME(AWeaponPickup, Rarity);
+	DOREPLIFETIME(AWeaponPickup, BulletDamage);
+	DOREPLIFETIME(AWeaponPickup, MuzzleVelocity);
+	DOREPLIFETIME(AWeaponPickup, MagazineSize);
+	DOREPLIFETIME(AWeaponPickup, WeaponAccuracy);
 }
 
 void AWeaponPickup::GenerateRandomBoolArray(int32 ArrayLength, int32 NumTrue, TArray<bool>& RandBoolArray)

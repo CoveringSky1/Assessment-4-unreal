@@ -30,6 +30,8 @@ public:
 	UPROPERTY(EditInstanceOnly)
 	float SprintMultiplier;
 
+	class UHealthComponent* HealthComponent;
+
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
@@ -48,9 +50,19 @@ public:
 	void BlueprintReload();
 
 	UFUNCTION(Server, Reliable)
-		void ServerSprintStart();
+	void ServerSprintStart();
 	UFUNCTION(Server, Reliable)
-		void ServerSprintEnd();
+	void ServerSprintEnd();
+	UFUNCTION(Client, Reliable)
+	void SetPlayerHUDVisibility(bool bHUDVisible);
+
+	void OnDeath();
+
+	/**
+	 * Will hide and show the required shadows and models of the character
+	 */
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
+	void ResetModelVisibility();
 
 private:
 

@@ -40,7 +40,9 @@ public:
 	UPROPERTY(EditAnywhere)
 	bool bRegenerateMap;
 
+	UPROPERTY(VisibleAnywhere)
 	TArray<FVector> Vertices;
+
 	TArray<int32> Triangles;
 	TArray<FVector2D> UVCoords;
 	TArray<FVector> Normals;
