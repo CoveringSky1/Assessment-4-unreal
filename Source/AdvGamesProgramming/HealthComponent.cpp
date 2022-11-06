@@ -30,6 +30,7 @@ void UHealthComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActo
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
 	// ...
+	OnDeath();
 }
 
 void UHealthComponent::OnTakeDamage(float Damage)
@@ -44,7 +45,9 @@ void UHealthComponent::OnTakeDamage(float Damage)
 
 void UHealthComponent::OnDeath()
 {
-
+	if (CurrentHealth <= 0) {
+		GetOwner()->Destroy();
+	}
 }
 
 float UHealthComponent::HealthPercentageRemaining()
