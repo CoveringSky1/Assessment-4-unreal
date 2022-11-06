@@ -4,6 +4,7 @@
 #include "PlayerCharacter.h"
 #include "Components/InputComponent.h"
 #include "FirstPersonAnimInstance.h"
+#include "Net/UnrealNetwork.h"
 #include "GameFramework/CharacterMovementComponent.h"
 
 // Sets default values
@@ -15,6 +16,9 @@ APlayerCharacter::APlayerCharacter()
 	//Set default member variable values
 	LookSensitivity = 1.0f;
 	SprintMultiplier = 1.5f;
+
+	SprintMovementSpeed = GetCharacterMovement()->MaxWalkSpeed * SprintMultiplier;
+	NormalMovementSpeed = GetCharacterMovement()->MaxWalkSpeed;
 }
 
 // Called when the game starts or when spawned
@@ -117,7 +121,8 @@ void APlayerCharacter::Turn(float Value)
 
 void APlayerCharacter::SprintStart()
 {
-	GetCharacterMovement()->MaxWalkSpeed *= SprintMultiplier;
+	ServerSprintStart();
+	GetCharacterMovement()->MaxWalkSpeed = SprintMovementSpeed;
 
 	if (AnimInstance)
 	{
@@ -127,12 +132,23 @@ void APlayerCharacter::SprintStart()
 
 void APlayerCharacter::SprintEnd()
 {
-	GetCharacterMovement()->MaxWalkSpeed /= SprintMultiplier;
+	ServerSprintEnd();
+	GetCharacterMovement()->MaxWalkSpeed = NormalMovementSpeed;
 
 	if (AnimInstance)
 	{
 		AnimInstance->bIsSprinting = false;
 	}
+}
+
+void APlayerCharacter::ServerSprintStart_Implementation()
+{
+	GetCharacterMovement()->MaxWalkSpeed = SprintMovementSpeed;
+}
+
+void APlayerCharacter::ServerSprintEnd_Implementation()
+{
+	GetCharacterMovement()->MaxWalkSpeed = NormalMovementSpeed;
 }
 
 void APlayerCharacter::Reload()
