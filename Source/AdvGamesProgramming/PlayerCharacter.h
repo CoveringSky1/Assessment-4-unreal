@@ -20,12 +20,17 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	float SprintMovementSpeed;
+	float NormalMovementSpeed;
+
 public:	
 
 	UPROPERTY(EditAnywhere)
 	float LookSensitivity;
 	UPROPERTY(EditInstanceOnly)
 	float SprintMultiplier;
+
+	class UHealthComponent* HealthComponent;
 
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -43,6 +48,21 @@ public:
 
 	UFUNCTION(BlueprintImplementableEvent)
 	void BlueprintReload();
+
+	UFUNCTION(Server, Reliable)
+	void ServerSprintStart();
+	UFUNCTION(Server, Reliable)
+	void ServerSprintEnd();
+	UFUNCTION(Client, Reliable)
+	void SetPlayerHUDVisibility(bool bHUDVisible);
+
+	void OnDeath();
+
+	/**
+	 * Will hide and show the required shadows and models of the character
+	 */
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
+	void ResetModelVisibility();
 
 private:
 

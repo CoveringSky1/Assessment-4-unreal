@@ -31,4 +31,5 @@ public:
 	virtual void OnPickup(AActor* ActorThatPickedUp);
 	virtual void OnGenerate();
 
+
 };

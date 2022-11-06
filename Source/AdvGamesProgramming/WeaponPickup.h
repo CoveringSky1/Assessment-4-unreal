@@ -23,23 +23,24 @@ class ADVGAMESPROGRAMMING_API AWeaponPickup : public APickup
 	
 public:
 
-	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
+	UPROPERTY(Replicated, BlueprintReadOnly, VisibleAnywhere)
 	EWeaponPickupRarity Rarity;
 
-	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
+	UPROPERTY(Replicated, BlueprintReadOnly, VisibleAnywhere)
 	float BulletDamage;
-	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
+	UPROPERTY(Replicated, BlueprintReadOnly, VisibleAnywhere)
 	float MuzzleVelocity;
-	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
+	UPROPERTY(Replicated, BlueprintReadOnly, VisibleAnywhere)
 	int32 MagazineSize;
-	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
+	UPROPERTY(Replicated, BlueprintReadOnly, VisibleAnywhere)
 	float WeaponAccuracy;
-
 
 	UFUNCTION(BlueprintImplementableEvent)
 	void OnPickup(AActor* ActorThatPickedUp) override;
 	UFUNCTION(BlueprintCallable)
 	void OnGenerate() override;
+
+	void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
 private:
 	void GenerateRandomBoolArray(int32 ArrayLength, int32 NumTrue, TArray<bool>& RandBoolArray);
