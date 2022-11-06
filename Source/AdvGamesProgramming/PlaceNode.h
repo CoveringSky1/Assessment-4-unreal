@@ -50,7 +50,7 @@ public:
 	UPROPERTY(EditAnywhere)
 		TSubclassOf<AActor> AIToSpawn;
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		int numberOfAI;
 
 

@@ -13,7 +13,6 @@ APlaceNode::APlaceNode()
 	tileFloorCom->SetStaticMesh(floor);
 	AddInstanceComponent(tileFloorCom);
 	bRegenerateMap = false;
-	//generateMap();
 }
 
 // Called when the game starts or when spawned
@@ -64,7 +63,7 @@ void APlaceNode::generateMap()
 
 	for (int i = 0; i < numberOfAI; i++) {
 		FActorSpawnParameters SpawnParams;
-		FVector location = FVector(200, i*200, 50);
+		FVector location = FVector(200, i*200, 10);
 		FRotator rotation = FRotator(0, 0, 0);
 		AActor* AI = GetWorld()->SpawnActor<AActor>(AIToSpawn, location, rotation, SpawnParams);
 	}
