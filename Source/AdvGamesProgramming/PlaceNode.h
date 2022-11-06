@@ -47,4 +47,11 @@ public:
 
 	void generateMap();
 
+	UPROPERTY(EditAnywhere)
+		TSubclassOf<AActor> AIToSpawn;
+
+	UPROPERTY(EditAnywhere)
+		int numberOfAI;
+
+
 };
