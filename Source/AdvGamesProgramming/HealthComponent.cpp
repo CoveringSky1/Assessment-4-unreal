@@ -48,6 +48,13 @@ void UHealthComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActo
 		GEngine->AddOnScreenDebugMessage(-1, 1.0f, FColor::Red, FString::Printf(TEXT("Current Health: %f"), CurrentHealth));
 	}
 	*/
+	if (APawn* OwnerPawn = Cast<APawn>(GetOwner()))
+	{
+		if (GetOwner()->GetLocalRole() == ROLE_Authority && OwnerPawn->IsLocallyControlled())
+		{
+			UpdateHealthBar();
+		}
+	}
 }
 
 void UHealthComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
@@ -64,13 +71,6 @@ void UHealthComponent::OnTakeDamage(float Damage)
 	{
 		CurrentHealth = 0;
 		OnDeath();
-	}
-	if (APawn* OwnerPawn = Cast<APawn>(GetOwner()))
-	{
-		if (GetOwner()->GetLocalRole() == ROLE_Authority && OwnerPawn->IsLocallyControlled())
-		{
-			UpdateHealthBar();
-		}
 	}
 	
 }

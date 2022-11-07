@@ -15,12 +15,14 @@ class ADVGAMESPROGRAMMING_API AHealthPickUp : public APickup
 	GENERATED_BODY()
 	
 public:
-	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
+	UPROPERTY(Replicated,BlueprintReadOnly, EditAnywhere)
 		float FullHealth;
 
 	UFUNCTION(BlueprintImplementableEvent)
 		void OnPickup(AActor* ActorThatPickedUp) override;
 	UFUNCTION(BlueprintCallable)
 		void OnGenerate() override;
+
+		void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
 };

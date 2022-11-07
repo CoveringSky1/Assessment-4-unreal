@@ -115,6 +115,7 @@ void AMultiplayerGameMode::TriggerRespawn(AController* Controller)
 			{
 				PlayerHUD->ShowHUD();
 				PlayerHUD->SetPlayerHealthBarPercent(1.0f);
+				PlayerHUD->SetPlayerArmorBarPercent(0.0f);
 			}
 			
 			Character->ResetModelVisibility();

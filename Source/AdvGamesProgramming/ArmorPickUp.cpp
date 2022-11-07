@@ -2,6 +2,7 @@
 
 
 #include "ArmorPickUp.h"
+#include "Net/UnrealNetwork.h"
 
 void AArmorPickUp::OnGenerate() {
 
@@ -34,4 +35,12 @@ void AArmorPickUp::OnGenerate() {
 	else if (Rarity == EArmorPickupRarity::LEGENDARY) {
 		Buff = 100.0f;
 	}
+}
+
+void AArmorPickUp::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+
+	DOREPLIFETIME(AArmorPickUp, Rarity);
+	DOREPLIFETIME(AArmorPickUp, Buff);
 }

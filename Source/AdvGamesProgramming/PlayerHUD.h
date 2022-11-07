@@ -19,21 +19,24 @@ private:
 	TSubclassOf<class UUserWidget> PlayerHUDClass;
 	UUserWidget* CurrentPlayerHUDWidget;
 	class UProgressBar* HealthProgressBar;
+	class UProgressBar* ArmorProgressBar;
 	class UTextBlock* RoundsInMagazineText;
 	UTextBlock* RoundsRemainingText;
 	class UTextBlock* TotalCollectionText;
 	UTextBlock* CurrentCollectionText;
+	class UTextBlock* BossHealthText;
 
 public:
 
 	APlayerHUD();
 
 	void SetPlayerHealthBarPercent(float Percent);
+	void SetPlayerArmorBarPercent(float Percent);
 	void HideHUD();
 	void ShowHUD();
 	UFUNCTION(BlueprintCallable)
 	void SetAmmoText(int32 RoundsRemaining, int32 RoundsInMagazine);
 	UFUNCTION(BlueprintCallable)
-	void SetGoldCoinText(int32 currentCollection, int32 totalCollection);
+	void SetGoldCoinText(int32 currentCollection, int32 totalCollection, int32 BossHealth);
 	
 };

@@ -36,10 +36,12 @@ APlayerHUD::APlayerHUD()
 	if (CurrentPlayerHUDWidget)
 	{
 		HealthProgressBar = Cast<UProgressBar>(CurrentPlayerHUDWidget->GetWidgetFromName(TEXT("ProgHealthBar")));
+		ArmorProgressBar = Cast<UProgressBar>(CurrentPlayerHUDWidget->GetWidgetFromName(TEXT("ProgArmorBar")));
 		RoundsRemainingText = Cast<UTextBlock>(CurrentPlayerHUDWidget->GetWidgetFromName(TEXT("RoundsRemaining")));
 		RoundsInMagazineText = Cast<UTextBlock>(CurrentPlayerHUDWidget->GetWidgetFromName(TEXT("RoundsInMagazine")));
 		CurrentCollectionText = Cast<UTextBlock>(CurrentPlayerHUDWidget->GetWidgetFromName(TEXT("CurrentCollection")));
 		TotalCollectionText = Cast<UTextBlock>(CurrentPlayerHUDWidget->GetWidgetFromName(TEXT("TotalCollection")));
+		BossHealthText = Cast<UTextBlock>(CurrentPlayerHUDWidget->GetWidgetFromName(TEXT("BossHealth")));
 	}
 	
 }
@@ -53,6 +55,18 @@ void APlayerHUD::SetPlayerHealthBarPercent(float Percent)
 	else
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Unable to find the progress bar to update the health"))
+	}
+}
+
+void APlayerHUD::SetPlayerArmorBarPercent(float Percent)
+{
+	if (ArmorProgressBar)
+	{
+		ArmorProgressBar->SetPercent(Percent);
+	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Unable to find the progress bar to update the Armor"))
 	}
 }
 
@@ -81,11 +95,12 @@ void APlayerHUD::SetAmmoText(int32 RoundsRemaining, int32 RoundsInMagazine)
 	}
 }
 
-void APlayerHUD::SetGoldCoinText(int32 currentCollection, int32 totalCollection)
+void APlayerHUD::SetGoldCoinText(int32 currentCollection, int32 totalCollection, int32 BossHealth)
 {
-	if (CurrentCollectionText && TotalCollectionText)
+	if (CurrentCollectionText && TotalCollectionText && BossHealthText)
 	{
 		CurrentCollectionText->SetText(FText::FromString(FString::Printf(TEXT("%i"), currentCollection)));
 		TotalCollectionText->SetText(FText::FromString(FString::Printf(TEXT("%i"), totalCollection)));
+		BossHealthText->SetText(FText::FromString(FString::Printf(TEXT("%i"), BossHealth)));
 	}
 }

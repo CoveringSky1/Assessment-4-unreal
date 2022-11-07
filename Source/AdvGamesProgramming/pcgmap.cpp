@@ -3,6 +3,7 @@
 
 #include "pcgmap.h"
 #include "EngineUtils.h"
+#include "Net/UnrealNetwork.h"
 
 // Sets default values
 Apcgmap::Apcgmap()
@@ -36,8 +37,8 @@ void Apcgmap::BeginPlay()
 {
 	Super::BeginPlay();
 	Doors.Empty();
-	RoomSizeX = FMath::RandRange(3, 5);
-	RoomSizeY = FMath::RandRange(3, 5);
+	RoomSizeX = 5;
+	RoomSizeY = 5;
 	GenerateRoom();
 }
 
@@ -113,8 +114,8 @@ void Apcgmap::GenerateRoom() {
 
 void Apcgmap::ClearMap(){
 	//delete all the mesh
-	tileWallCom->ClearInstances();
-	tileFloorCom->ClearInstances();
+	//tileWallCom->ClearInstances();
+	//tileFloorCom->ClearInstances();
 }
 
 void Apcgmap::WallOrDoor(FVector loc, FRotator rot, FTransform tra, int index)
@@ -170,7 +171,7 @@ void Apcgmap::SpawnGoldenCoin(FVector loc, FRotator rot)
 TypeOfItem Apcgmap::WhichItemPlace()
 {
 	//random with percentage select the item
-	float RarityValue = FMath::RandRange(0.0f, 1.0f);
+	RarityValue = FMath::RandRange(0.0f, 1.0f);
 
 	if (RarityValue <= 0.15f)
 	{
@@ -206,5 +207,24 @@ void Apcgmap::ItemPlace(FVector location)
 	else if (WhichItemPlace() == TypeOfItem::GOLDENCOIN) {
 		SpawnGoldenCoin(location, FRotator(0, 0, 0));
 	}
+}
+
+void Apcgmap::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+
+	DOREPLIFETIME(Apcgmap, RarityValue);
+	DOREPLIFETIME(Apcgmap, RoomSizeX);
+	DOREPLIFETIME(Apcgmap, RoomSizeY);
+	DOREPLIFETIME(Apcgmap, TileSizeX);
+	DOREPLIFETIME(Apcgmap, TileSizeY);
+	DOREPLIFETIME(Apcgmap, doorNumber);
+	DOREPLIFETIME(Apcgmap, DoorEvery);
+	DOREPLIFETIME(Apcgmap, DoorRemainder);
+	DOREPLIFETIME(Apcgmap, origin);
+	DOREPLIFETIME(Apcgmap, Doors);
+	DOREPLIFETIME(Apcgmap, transform);
+	DOREPLIFETIME(Apcgmap, bRegenerateMap);
+	DOREPLIFETIME(Apcgmap, ItemType);
 }
 

@@ -35,6 +35,7 @@ public:
 	UPROPERTY(EditAnywhere)
 		UStaticMesh* floor;
 
+
 	FTransform transform;
 
 	UPROPERTY(EditAnywhere)

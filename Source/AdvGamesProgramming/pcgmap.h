@@ -42,35 +42,40 @@ public:
 
 
 public:
-	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
+	UPROPERTY(Replicated, BlueprintReadOnly, VisibleAnywhere)
 	FVector tile;
-	UPROPERTY(EditAnywhere,BlueprintReadWrite)
+	UPROPERTY(Replicated, EditAnywhere,BlueprintReadWrite)
 		int RoomSizeX;
-	UPROPERTY(EditAnywhere,BlueprintReadWrite)
+	UPROPERTY(Replicated, EditAnywhere,BlueprintReadWrite)
 		int RoomSizeY;
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(Replicated, BlueprintReadOnly, EditAnywhere)
 		float TileSizeX;
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(Replicated, BlueprintReadOnly, EditAnywhere)
 		float TileSizeY;
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(Replicated, BlueprintReadOnly, EditAnywhere)
 		int doorNumber;
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(BlueprintReadOnly, EditAnywhere)
 		TSubclassOf<AActor> DoorToSpawn;
+	UPROPERTY(Replicated, BlueprintReadOnly,EditAnywhere)
+	    float RarityValue;
 	
 	USceneComponent* SceneComponent;
 
+	UPROPERTY(Replicated, BlueprintReadOnly, EditAnywhere)
 	TArray<AActor*> Doors;
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(Replicated, EditAnywhere)
 		int DoorEvery;
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(Replicated, EditAnywhere)
 		int DoorRemainder;
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(Replicated, EditAnywhere)
 		bool origin;
 
+	UFUNCTION(BlueprintCallable)
 	void GenerateRoom();
-
+	
+	UPROPERTY(Replicated, BlueprintReadOnly, EditAnywhere)
 	FTransform transform;
 
 	UPROPERTY(EditAnywhere)
@@ -85,7 +90,7 @@ public:
 	UPROPERTY(EditAnywhere)
 	UStaticMesh* wall;
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(Replicated, BlueprintReadOnly, EditAnywhere)
 		bool bRegenerateMap;
 
 	void ClearMap();
@@ -97,7 +102,7 @@ public:
 	UFUNCTION()
 	void SpawnDoor(FVector loc, FRotator rot);
 
-	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
+	UPROPERTY(Replicated, BlueprintReadOnly, EditAnywhere)
 		TypeOfItem ItemType;
 	UPROPERTY(EditAnywhere)
 		TSubclassOf<AActor> ArmorToSpawn;
@@ -120,8 +125,9 @@ public:
 	UFUNCTION()
 		void SpawnGoldenCoin(FVector loc, FRotator rot);
 	
-
 	TypeOfItem WhichItemPlace();
 
 	void ItemPlace(FVector location);
+
+	void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 };

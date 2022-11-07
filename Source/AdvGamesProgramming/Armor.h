@@ -24,10 +24,20 @@ public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Armor")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Health")
+		float MaxArmor;
+	UPROPERTY(ReplicatedUsing = UpdateArmorBar, BlueprintReadWrite)
 		float CurrentArmor;
 
 	UFUNCTION(BlueprintCallable)
 		void OnTakeDamage(float Damage);
+
+	float HealthPercentageRemaining();
+
+	void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+
+private:
+	UFUNCTION()
+		void UpdateArmorBar();
 		
 };
