@@ -38,6 +38,8 @@ APlayerHUD::APlayerHUD()
 		HealthProgressBar = Cast<UProgressBar>(CurrentPlayerHUDWidget->GetWidgetFromName(TEXT("ProgHealthBar")));
 		RoundsRemainingText = Cast<UTextBlock>(CurrentPlayerHUDWidget->GetWidgetFromName(TEXT("RoundsRemaining")));
 		RoundsInMagazineText = Cast<UTextBlock>(CurrentPlayerHUDWidget->GetWidgetFromName(TEXT("RoundsInMagazine")));
+		CurrentCollectionText = Cast<UTextBlock>(CurrentPlayerHUDWidget->GetWidgetFromName(TEXT("CurrentCollection")));
+		TotalCollectionText = Cast<UTextBlock>(CurrentPlayerHUDWidget->GetWidgetFromName(TEXT("TotalCollection")));
 	}
 	
 }
